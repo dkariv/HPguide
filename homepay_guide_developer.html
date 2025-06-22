@@ -28,16 +28,18 @@
       width: 250px;
       background-color: #f0f0f0;
       padding: 20px;
-      height: 100vh; /* Full height */
+      height: 100vh;
       position: sticky;
       top: 0;
-      overflow-y: auto; /* Scrollable if content exceeds height */
+      overflow-y: auto;
     }
     .sidebar ul {
       list-style: none;
       padding: 0;
       margin: 0;
     }
+    /* .sidebar ul li a, .sidebar ul li a:hover, .content, h1, h2, .section, ul are defined later or are duplicates */
+    /* Specific styles for sidebar links */
     .sidebar ul li a {
       display: block;
       padding: 10px 15px;
@@ -49,11 +51,43 @@
       background-color: #005baa;
       color: white;
     }
+
     .content {
-      flex-grow: 1; /* Takes remaining space */
+      flex-grow: 1;
       padding: 20px;
-      margin-right: 20px; /* Space between sidebar and content */
+      margin-right: 20px;
     }
+
+    .menu-toggle {
+      display: none; /* Hidden by default */
+      background-color: #005baa;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto; /* Adjust height for horizontal layout */
+        position: static; /* No longer sticky */
+        display: none; /* Hidden for toggle */
+      }
+      .sidebar.active {
+        display: block; /* Show when active */
+      }
+      .menu-toggle {
+        display: block; /* Show hamburger icon */
+      }
+      .content {
+        margin-right: 0; /* Remove margin when sidebar is on top */
+      }
+    }
+
     h1, h2 {
       color: #005baa;
     }
@@ -65,9 +99,11 @@
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
     ul {
-      list-style: none;
-      padding-right: 0;
+      list-style: none; /* General ul reset, specific for content lists */
+      padding-right: 0; /* Align bullet points for RTL */
     }
+    /* Remove duplicated .sidebar ul li a, .content, h1, h2, .section */
+    /* Styles for li::before and img.screenshot are unique and should remain */
     li::before {
       content: "\2022";
       color: #005baa;
@@ -89,9 +125,11 @@
   <header>
     <img src="hplogo.png" alt="HomePay Logo">
   </header>
+  <div class="menu-toggle" onclick="toggleMenu()">☰ תפריט</div>
   <div class="container">
     <nav class="sidebar">
       <ul>
+        <li><a href="#introduction" onclick="selectMenuItem()">הקדמה</a></li>
         <li><a href="#section1">שלב 1: כניסה למערכת</a></li>
         <li><a href="#section2">שלב 2: מסך פרויקטים</a></li>
         <li><a href="#section3">שלב 3: רשימת דירות</a></li>
@@ -102,6 +140,12 @@
     </nav>
     <div class="content">
       <h1>מדריך ליזם במערכת HomePay</h1>
+
+      <div class="section" id="introduction" onclick="selectMenuItem()">
+        <h2>ברוך הבא לעולם הדיגיטלי של HomePay!</h2>
+        <p>אנו שמחים שבחרת להצטרף למהפכה הדיגיטלית בתחום הנדל״ן. באמצעות מערכת HomePay תוכל לנהל ולהנפיק שוברי תשלום על פי חוק המכר בצורה חכמה, מהירה ומאובטחת. מהיום, לא רק שאתה נהנה מייעול תהליכים והפחתת בירוקרטיה, אלא שאתה גם מעניק לרוכשים שלך חוויית שירות מתקדמת – כולל תשלום דיגיטלי קל ונוח, מעקב בזמן אמת אחר סכומים ותאריכי תשלום, וכל זאת בלחיצת כפתור.</p>
+        <p>יחד, נביא חדשנות אמיתית לעולם העסקאות בנדל״ן.</p>
+      </div>
 
       <div class="section" id="section1">
         <h2>שלב 1: כניסה למערכת</h2>
@@ -162,5 +206,22 @@
 
   </div>
   </div>
+  <script>
+    function toggleMenu() {
+      const sidebar = document.querySelector('.sidebar');
+      sidebar.classList.toggle('active');
+    }
+    function selectMenuItem() {
+      const sidebar = document.querySelector('.sidebar');
+      if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+      }
+    }
+    // Add click event listeners to all sidebar links to close menu on selection (mobile)
+    const sidebarLinks = document.querySelectorAll('.sidebar ul li a');
+    sidebarLinks.forEach(link => {
+      link.addEventListener('click', selectMenuItem);
+    });
+  </script>
 </body>
 </html>
