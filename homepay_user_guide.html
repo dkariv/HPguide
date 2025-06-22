@@ -21,8 +21,38 @@
     header img {
       max-height: 60px;
     }
-    .content {
+    .container {
+      display: flex;
+    }
+    .sidebar {
+      width: 250px;
+      background-color: #f0f0f0;
       padding: 20px;
+      height: 100vh; /* Full height */
+      position: sticky;
+      top: 0;
+      overflow-y: auto; /* Scrollable if content exceeds height */
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .sidebar ul li a {
+      display: block;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #333;
+      border-bottom: 1px solid #ddd;
+    }
+    .sidebar ul li a:hover {
+      background-color: #005baa;
+      color: white;
+    }
+    .content {
+      flex-grow: 1; /* Takes remaining space */
+      padding: 20px;
+      margin-right: 20px; /* Space between sidebar and content */
     }
     h1, h2 {
       color: #005baa;
@@ -59,11 +89,25 @@
   <header>
     <img src="hplogo.png" alt="HomePay Logo">
   </header>
-  <div class="content">
-    <h1>מדריך למשתמש במערכת HomePay</h1>
+  <div class="container">
+    <nav class="sidebar">
+      <ul>
+        <li><a href="#section1">שלב 1: כניסה למערכת</a></li>
+        <li><a href="#section2">שלב 2: מסך פרויקטים</a></li>
+        <li><a href="#section3">שלב 3: רשימת דירות</a></li>
+        <li><a href="#section4">שלב 4: העלאת הסכם</a></li>
+        <li><a href="#section5">שלב 5: הזמנת לקוח</a></li>
+        <li><a href="#section6">שלב 6: הורדת שובר</a></li>
+        <li><a href="#section7">מדריך לרוכש דירה</a></li>
+        <li><a href="#section8">תשלומים וצפייה</a></li>
+        <li><a href="#section9">פירוט רכיבי תשלום</a></li>
+      </ul>
+    </nav>
+    <div class="content">
+      <h1>מדריך למשתמש במערכת HomePay</h1>
 
-    <div class="section">
-      <h2>שלב 1: כניסה למערכת</h2>
+      <div class="section" id="section1">
+        <h2>שלב 1: כניסה למערכת</h2>
       <ul>
         <li>הזינו את מספר הטלפון ותעודת הזהות של הנציג.</li>
         <li>תקבלו קוד חד פעמי לאימות.</li>
@@ -73,7 +117,7 @@
       <img src="Picture2.png" alt="מסך אימות קוד" class="screenshot">
     </div>
 
-    <div class="section">
+    <div class="section" id="section2">
       <h2>שלב 2: מסך פרויקטים</h2>
       <ul>
         <li>מסך זה מציג את כלל הפרויקטים לפי חלוקה ליחידות, סטטוסים ובניינים.</li>
@@ -82,7 +126,7 @@
       <img src="Picture3.png" alt="מסך פרויקטים" class="screenshot">
     </div>
 
-    <div class="section">
+    <div class="section" id="section3">
       <h2>שלב 3: רשימת דירות בפרויקט</h2>
       <ul>
         <li>כאן תראו את סטטוס הדירות, ההסכמים והאפשרות לבטל או להוריד שובר.</li>
@@ -91,7 +135,7 @@
       <img src="Picture4.png" alt="רשימת דירות" class="screenshot">
     </div>
 
-    <div class="section">
+    <div class="section" id="section4">
       <h2>שלב 4: העלאת הסכם מכר</h2>
       <ul>
         <li>העלו הסכם מכר כולל מפת תשלומים בפורמט PDF.</li>
@@ -101,7 +145,7 @@
       <img src="Picture6.png" alt="הסכם נטען" class="screenshot">
     </div>
 
-    <div class="section">
+    <div class="section" id="section5">
       <h2>שלב 5: הזמנת לקוח חדש</h2>
       <ul>
         <li>מלאו שם, טלפון ותעודת זהות של הרוכש.</li>
@@ -110,7 +154,7 @@
       <img src="Picture7.png" alt="הזמנת רוכש חדש" class="screenshot">
     </div>
 
-    <div class="section">
+    <div class="section" id="section6">
       <h2>שלב 6: הורדת שובר ואישור תשלום</h2>
       <ul>
         <li>לאחר אישור הסכם המכר - השובר מוכן להורדה.</li>
@@ -119,7 +163,7 @@
       <img src="Picture8.png" alt="תצוגת שובר" class="screenshot">
     </div>
 
-    <div class="section">
+    <div class="section" id="section7">
       <h2>מדריך לרוכש דירה</h2>
       <ul>
         <li>כניסה למערכת עם מספר ת"ז ומספר טלפון.</li>
@@ -130,7 +174,7 @@
       <img src="client2.png" alt="מסך פרטי הדירה" class="screenshot">
     </div>
 
-    <div class="section">
+    <div class="section" id="section8">
       <h2>תשלומים וצפייה בפרטי החיוב</h2>
       <ul>
         <li>צפייה בלוח תשלומים, תאריכים, סכומי קרן וסכומים כולל הצמדות.</li>
@@ -140,7 +184,7 @@
       <img src="client6.png" alt="צפייה בתשלום והורדת שובר" class="screenshot">
     </div>
 
-    <div class="section">
+    <div class="section" id="section9">
       <h2>פירוט רכיבי תשלום והרלוונטי להסכם</h2>
       <ul>
         <li>לחיצה על "צפה" תציג רכיבי תשלום כולל ריבית הצמדה, הפרשים ותנאים.</li>
@@ -150,6 +194,7 @@
       <img src="client5.png" alt="הפניה להסבר ריבית והצמדה" class="screenshot">
     </div>
 
+  </div>
   </div>
 </body>
 </html>
