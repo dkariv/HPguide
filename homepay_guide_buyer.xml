@@ -2,6 +2,10 @@
   <title>מדריך לרוכש - HomePay</title>
   <mainHeading>מדריך לרוכש במערכת HomePay</mainHeading>
   <logo>hplogo.png</logo>
+  <headerSupportLink>
+    <url>ai_support_agent.html</url>
+    <text>תמיכה עם סוכן AI</text>
+  </headerSupportLink>
 
   <introduction id="buyer_introduction">
     <heading>מזל טוב על רכישת הדירה החדשה!</heading>

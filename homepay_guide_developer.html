@@ -21,6 +21,24 @@
     header img {
       max-height: 60px;
     }
+    header { /* Ensure header itself allows for flex layout */
+      display: flex;
+      justify-content: space-between; /* Pushes logo and link to opposite ends */
+      align-items: center; /* Vertically aligns items in the center */
+    }
+    .header-support-link {
+      text-decoration: none;
+      color: #005baa;
+      font-weight: bold;
+      padding: 10px;
+      border: 1px solid #005baa;
+      border-radius: 5px;
+      margin-left: 20px; /* For RTL, this pushes it to the left */
+    }
+    .header-support-link:hover {
+      background-color: #005baa;
+      color: white;
+    }
     .container {
       display: flex;
     }
@@ -152,6 +170,18 @@
           headerImg.src = logoSrc;
           headerImg.alt = 'HomePay Logo';
           headerPlaceholder.appendChild(headerImg);
+
+          // Populate AI Support Link in header
+          const supportLinkData = xmlDoc.querySelector('headerSupportLink');
+          if (supportLinkData) {
+            const supportUrl = supportLinkData.querySelector('url').textContent;
+            const supportText = supportLinkData.querySelector('text').textContent;
+            const supportLinkElement = document.createElement('a');
+            supportLinkElement.href = supportUrl;
+            supportLinkElement.textContent = supportText;
+            supportLinkElement.className = 'header-support-link'; // For styling
+            headerPlaceholder.appendChild(supportLinkElement);
+          }
 
           // Populate sidebar and content
           const sidebarUl = document.getElementById('sidebar-ul');
