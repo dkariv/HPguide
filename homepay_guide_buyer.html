@@ -122,78 +122,131 @@
   </style>
 </head>
 <body>
-  <header>
-    <img src="hplogo.png" alt="HomePay Logo">
-  </header>
+  <header id="header-placeholder"></header>
   <div class="menu-toggle" onclick="toggleMenu()">☰ תפריט</div>
   <div class="container">
     <nav class="sidebar">
-      <ul>
-        <li><a href="#buyer_introduction" onclick="selectMenuItem()">הקדמה</a></li>
-        <li><a href="#buyer_section1" onclick="selectMenuItem()">שלב 1: כניסה והצגת נתוני דירה</a></li>
-        <li><a href="#buyer_section2" onclick="selectMenuItem()">שלב 2: תשלומים וצפייה בחיובים</a></li>
-        <li><a href="#buyer_section3" onclick="selectMenuItem()">שלב 3: פירוט רכיבי תשלום</a></li>
+      <ul id="sidebar-ul">
+        <!-- Sidebar items will be populated by JavaScript -->
       </ul>
     </nav>
-    <div class="content">
-      <h1>מדריך לרוכש במערכת HomePay</h1>
-
-      <div class="section" id="buyer_introduction">
-        <h2>מזל טוב על רכישת הדירה החדשה!</h2>
-        <p>אנו מברכים אותך לרגל הצעד המשמעותי והמרגש – רכישת דירה בפרויקט שמציע שירות חדשני ומתקדם לניהול תשלומים דיגיטליים לפי חוק המכר.</p>
-        <p>באמצעות מערכת HomePay, עומדת לרשותך פלטפורמה חכמה, נוחה ובטוחה שתאפשר לך לנהל את תשלומי הדירה בקלות ובשקיפות מלאה. תוכל לצפות בשוברים ובפרטי התשלום שלך בכל רגע, להתעדכן בסכומים ובמועדים בזמן אמת, ולהוריד או לשלם את השוברים ישירות מהטלפון או המחשב – בלי בירוקרטיה, בלי תורים ובלי לצאת מהבית.</p>
-        <p>אנחנו כאן כדי להעניק לך חוויית רכישה דיגיטלית מתקדמת – שתתן לך שקט נפשי לאורך כל הדרך.</p>
-      </div>
-
-    <div class="section" id="buyer_section1">
-      <h2>שלב 1: כניסה למערכת והצגת נתוני הדירה</h2>
-      <ul>
-        <li>כניסה למערכת עם מספר ת"ז ומספר טלפון.</li>
-        <li>קבלת קוד חד פעמי לאימות.</li>
-        <li>גישה לממשק הדירה עם פרטי תשלומים ולחצני פעולה.</li>
-      </ul>
-      <img src="client1.png" alt="אימות עם קוד חד פעמי" class="screenshot">
-      <img src="client2.png" alt="מסך פרטי הדירה" class="screenshot">
+    <div class="content" id="content-placeholder">
+      <!-- Content will be populated by JavaScript -->
     </div>
-
-    <div class="section" id="buyer_section2">
-      <h2>שלב 2: תשלומים וצפייה בפרטי החיוב</h2>
-      <ul>
-        <li>צפייה בלוח תשלומים, תאריכים, סכומי קרן וסכומים כולל הצמדות.</li>
-        <li>הורדה של שובר תשלום או הוראת קבע.</li>
-      </ul>
-      <img src="client3.png" alt="מסך תשלומים לדירה" class="screenshot">
-      <img src="client6.png" alt="צפייה בתשלום והורדת שובר" class="screenshot">
-    </div>
-
-    <div class="section" id="buyer_section3">
-      <h2>שלב 3: פירוט רכיבי תשלום והרלוונטי להסכם</h2>
-      <ul>
-        <li>לחיצה על "צפה" תציג רכיבי תשלום כולל ריבית הצמדה, הפרשים ותנאים.</li>
-        <li>המידע כולל הסבר על מועדים ותנאים להסדרת התשלום.</li>
-      </ul>
-      <img src="client4.png" alt="פירוט הסכום לתשלום" class="screenshot">
-      <img src="client5.png" alt="הפניה להסבר ריבית והצמדה" class="screenshot">
-    </div>
-
-  </div>
   </div>
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('homepay_guide_buyer.xml') // Changed to buyer's XML
+        .then(response => response.text())
+        .then(data => {
+          let parser = new DOMParser();
+          let xmlDoc = parser.parseFromString(data, 'application/xml');
+
+          // Populate title
+          document.title = xmlDoc.querySelector('title').textContent;
+
+          // Populate header
+          const headerPlaceholder = document.getElementById('header-placeholder');
+          const logoSrc = xmlDoc.querySelector('logo').textContent;
+          const headerImg = document.createElement('img');
+          headerImg.src = logoSrc;
+          headerImg.alt = 'HomePay Logo';
+          headerPlaceholder.appendChild(headerImg);
+
+          // Populate sidebar and content
+          const sidebarUl = document.getElementById('sidebar-ul');
+          const contentPlaceholder = document.getElementById('content-placeholder');
+
+          const mainHeadingText = xmlDoc.querySelector('mainHeading').textContent;
+          const mainHeadingElement = document.createElement('h1');
+          mainHeadingElement.textContent = mainHeadingText;
+          contentPlaceholder.appendChild(mainHeadingElement);
+
+          // Introduction
+          const introduction = xmlDoc.querySelector('introduction');
+          if (introduction) {
+            const introId = introduction.getAttribute('id');
+            const introHeadingText = introduction.querySelector('heading').textContent;
+
+            const sidebarLiIntro = document.createElement('li');
+            const sidebarLinkIntro = document.createElement('a');
+            sidebarLinkIntro.href = `#${introId}`;
+            sidebarLinkIntro.textContent = introHeadingText; // Or a shorter title like "הקדמה"
+            sidebarLinkIntro.onclick = selectMenuItem;
+            sidebarLiIntro.appendChild(sidebarLinkIntro);
+            sidebarUl.appendChild(sidebarLiIntro);
+
+            const introSectionDiv = document.createElement('div');
+            introSectionDiv.className = 'section';
+            introSectionDiv.id = introId;
+
+            const introH2 = document.createElement('h2');
+            introH2.textContent = introHeadingText;
+            introSectionDiv.appendChild(introH2);
+
+            introduction.querySelectorAll('paragraph').forEach(p => {
+              const pElement = document.createElement('p');
+              pElement.textContent = p.textContent;
+              introSectionDiv.appendChild(pElement);
+            });
+            contentPlaceholder.appendChild(introSectionDiv);
+          }
+
+          // Sections
+          xmlDoc.querySelectorAll('sections section').forEach(section => {
+            const sectionId = section.getAttribute('id');
+            const sectionHeadingText = section.querySelector('heading').textContent;
+
+            const sidebarLi = document.createElement('li');
+            const sidebarLink = document.createElement('a');
+            sidebarLink.href = `#${sectionId}`;
+            sidebarLink.textContent = sectionHeadingText;
+            sidebarLink.onclick = selectMenuItem;
+            sidebarLi.appendChild(sidebarLink);
+            sidebarUl.appendChild(sidebarLi);
+
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'section';
+            sectionDiv.id = sectionId;
+
+            const h2 = document.createElement('h2');
+            h2.textContent = sectionHeadingText;
+            sectionDiv.appendChild(h2);
+
+            const stepsUl = document.createElement('ul');
+            section.querySelectorAll('steps step').forEach(stepNode => {
+              const li = document.createElement('li');
+              li.textContent = stepNode.textContent;
+              stepsUl.appendChild(li);
+            });
+            if (stepsUl.hasChildNodes()) {
+              sectionDiv.appendChild(stepsUl);
+            }
+
+            section.querySelectorAll('images image').forEach(imgNode => {
+              const img = document.createElement('img');
+              img.src = imgNode.getAttribute('src');
+              img.alt = imgNode.getAttribute('alt');
+              img.className = 'screenshot';
+              sectionDiv.appendChild(img);
+            });
+            contentPlaceholder.appendChild(sectionDiv);
+          });
+        })
+        .catch(error => console.error('Error loading or parsing XML:', error));
+    });
+
     function toggleMenu() {
       const sidebar = document.querySelector('.sidebar');
       sidebar.classList.toggle('active');
     }
+
     function selectMenuItem() {
       const sidebar = document.querySelector('.sidebar');
       if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
         sidebar.classList.remove('active');
       }
     }
-    // Add click event listeners to all sidebar links to close menu on selection (mobile)
-    const sidebarLinks = document.querySelectorAll('.sidebar ul li a');
-    sidebarLinks.forEach(link => {
-      link.addEventListener('click', selectMenuItem);
-    });
   </script>
 </body>
 </html>

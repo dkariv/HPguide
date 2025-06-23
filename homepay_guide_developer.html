@@ -122,106 +122,138 @@
   </style>
 </head>
 <body>
-  <header>
-    <img src="hplogo.png" alt="HomePay Logo">
-  </header>
+  <header id="header-placeholder"></header>
   <div class="menu-toggle" onclick="toggleMenu()">☰ תפריט</div>
   <div class="container">
     <nav class="sidebar">
-      <ul>
-        <li><a href="#introduction" onclick="selectMenuItem()">הקדמה</a></li>
-        <li><a href="#section1">שלב 1: כניסה למערכת</a></li>
-        <li><a href="#section2">שלב 2: מסך פרויקטים</a></li>
-        <li><a href="#section3">שלב 3: רשימת דירות</a></li>
-        <li><a href="#section4">שלב 4: העלאת הסכם</a></li>
-        <li><a href="#section5">שלב 5: הזמנת לקוח</a></li>
-        <li><a href="#section6">שלב 6: הורדת שובר</a></li>
+      <ul id="sidebar-ul">
+        <!-- Sidebar items will be populated by JavaScript -->
       </ul>
     </nav>
-    <div class="content">
-      <h1>מדריך ליזם במערכת HomePay</h1>
-
-      <div class="section" id="introduction" onclick="selectMenuItem()">
-        <h2>ברוך הבא לעולם הדיגיטלי של HomePay!</h2>
-        <p>אנו שמחים שבחרת להצטרף למהפכה הדיגיטלית בתחום הנדל״ן. באמצעות מערכת HomePay תוכל לנהל ולהנפיק שוברי תשלום על פי חוק המכר בצורה חכמה, מהירה ומאובטחת. מהיום, לא רק שאתה נהנה מייעול תהליכים והפחתת בירוקרטיה, אלא שאתה גם מעניק לרוכשים שלך חוויית שירות מתקדמת – כולל תשלום דיגיטלי קל ונוח, מעקב בזמן אמת אחר סכומים ותאריכי תשלום, וכל זאת בלחיצת כפתור.</p>
-        <p>יחד, נביא חדשנות אמיתית לעולם העסקאות בנדל״ן.</p>
-      </div>
-
-      <div class="section" id="section1">
-        <h2>שלב 1: כניסה למערכת</h2>
-      <ul>
-        <li>הזינו את מספר הטלפון ותעודת הזהות של הנציג.</li>
-        <li>תקבלו קוד חד פעמי לאימות.</li>
-        <li>לאחר מכן תעברו למסך הבית של המערכת.</li>
-      </ul>
-      <img src="Picture1.png" alt="מסך התחברות" class="screenshot">
-      <img src="Picture2.png" alt="מסך אימות קוד" class="screenshot">
+    <div class="content" id="content-placeholder">
+      <!-- Content will be populated by JavaScript -->
     </div>
-
-    <div class="section" id="section2">
-      <h2>שלב 2: מסך פרויקטים</h2>
-      <ul>
-        <li>מסך זה מציג את כלל הפרויקטים לפי חלוקה ליחידות, סטטוסים ובניינים.</li>
-        <li>ניתן לבחור פרויקט להמשך תהליך הנפקת שובר או העלאת הסכם.</li>
-      </ul>
-      <img src="Picture3.png" alt="מסך פרויקטים" class="screenshot">
-    </div>
-
-    <div class="section" id="section3">
-      <h2>שלב 3: רשימת דירות בפרויקט</h2>
-      <ul>
-        <li>כאן תראו את סטטוס הדירות, ההסכמים והאפשרות לבטל או להוריד שובר.</li>
-        <li>לכל דירה יש כפתורי פעולה רלוונטיים.</li>
-      </ul>
-      <img src="Picture4.png" alt="רשימת דירות" class="screenshot">
-    </div>
-
-    <div class="section" id="section4">
-      <h2>שלב 4: העלאת הסכם מכר</h2>
-      <ul>
-        <li>העלו הסכם מכר כולל מפת תשלומים בפורמט PDF.</li>
-        <li>המערכת תנתח את הקובץ ותשלח אותו לאישור הגוף המממן.</li>
-      </ul>
-      <img src="Picture5.png" alt="העלאת הסכם" class="screenshot">
-      <img src="Picture6.png" alt="הסכם נטען" class="screenshot">
-    </div>
-
-    <div class="section" id="section5">
-      <h2>שלב 5: הזמנת לקוח חדש</h2>
-      <ul>
-        <li>מלאו שם, טלפון ותעודת זהות של הרוכש.</li>
-        <li>שלחו לו קישור אישי להורדת השובר.</li>
-      </ul>
-      <img src="Picture7.png" alt="הזמנת רוכש חדש" class="screenshot">
-    </div>
-
-    <div class="section" id="section6">
-      <h2>שלב 6: הורדת שובר ואישור תשלום</h2>
-      <ul>
-        <li>לאחר אישור הסכם המכר - השובר מוכן להורדה.</li>
-        <li>ניתן לצפות ולשתף את השובר עם הרוכש בלחיצת כפתור.</li>
-      </ul>
-      <img src="Picture8.png" alt="תצוגת שובר" class="screenshot">
-    </div>
-
-  </div>
   </div>
   <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('homepay_guide_developer.xml')
+        .then(response => response.text())
+        .then(data => {
+          let parser = new DOMParser();
+          let xmlDoc = parser.parseFromString(data, 'application/xml');
+
+          // Populate title
+          document.title = xmlDoc.querySelector('title').textContent;
+
+          // Populate header
+          const headerPlaceholder = document.getElementById('header-placeholder');
+          const logoSrc = xmlDoc.querySelector('logo').textContent;
+          const headerImg = document.createElement('img');
+          headerImg.src = logoSrc;
+          headerImg.alt = 'HomePay Logo';
+          headerPlaceholder.appendChild(headerImg);
+
+          // Populate sidebar and content
+          const sidebarUl = document.getElementById('sidebar-ul');
+          const contentPlaceholder = document.getElementById('content-placeholder');
+
+          const mainHeadingText = xmlDoc.querySelector('mainHeading').textContent;
+          const mainHeadingElement = document.createElement('h1');
+          mainHeadingElement.textContent = mainHeadingText;
+          contentPlaceholder.appendChild(mainHeadingElement);
+
+          // Introduction
+          const introduction = xmlDoc.querySelector('introduction');
+          if (introduction) {
+            const introId = introduction.getAttribute('id');
+            const introHeadingText = introduction.querySelector('heading').textContent;
+
+            const sidebarLiIntro = document.createElement('li');
+            const sidebarLinkIntro = document.createElement('a');
+            sidebarLinkIntro.href = `#${introId}`;
+            sidebarLinkIntro.textContent = introHeadingText; // Or a shorter title like "הקדמה"
+            sidebarLinkIntro.onclick = selectMenuItem; // Keep existing mobile menu functionality
+            sidebarLiIntro.appendChild(sidebarLinkIntro);
+            sidebarUl.appendChild(sidebarLiIntro);
+
+            const introSectionDiv = document.createElement('div');
+            introSectionDiv.className = 'section';
+            introSectionDiv.id = introId;
+
+            const introH2 = document.createElement('h2');
+            introH2.textContent = introHeadingText;
+            introSectionDiv.appendChild(introH2);
+
+            introduction.querySelectorAll('paragraph').forEach(p => {
+              const pElement = document.createElement('p');
+              pElement.textContent = p.textContent;
+              introSectionDiv.appendChild(pElement);
+            });
+            contentPlaceholder.appendChild(introSectionDiv);
+          }
+
+          // Sections
+          xmlDoc.querySelectorAll('sections section').forEach(section => {
+            const sectionId = section.getAttribute('id');
+            const sectionHeadingText = section.querySelector('heading').textContent;
+
+            const sidebarLi = document.createElement('li');
+            const sidebarLink = document.createElement('a');
+            sidebarLink.href = `#${sectionId}`;
+            sidebarLink.textContent = sectionHeadingText;
+            sidebarLink.onclick = selectMenuItem;
+            sidebarLi.appendChild(sidebarLink);
+            sidebarUl.appendChild(sidebarLi);
+
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'section';
+            sectionDiv.id = sectionId;
+
+            const h2 = document.createElement('h2');
+            h2.textContent = sectionHeadingText;
+            sectionDiv.appendChild(h2);
+
+            const stepsUl = document.createElement('ul');
+            section.querySelectorAll('steps step').forEach(stepNode => {
+              const li = document.createElement('li');
+              li.textContent = stepNode.textContent;
+              stepsUl.appendChild(li);
+            });
+            if (stepsUl.hasChildNodes()) {
+              sectionDiv.appendChild(stepsUl);
+            }
+
+            section.querySelectorAll('images image').forEach(imgNode => {
+              const img = document.createElement('img');
+              img.src = imgNode.getAttribute('src');
+              img.alt = imgNode.getAttribute('alt');
+              img.className = 'screenshot';
+              sectionDiv.appendChild(img);
+            });
+            contentPlaceholder.appendChild(sectionDiv);
+          });
+
+          // Re-apply event listeners for new sidebar links if needed, though onclick should handle it
+          // If selectMenuItem relied on querySelectorAll('.sidebar ul li a') before this dynamic load,
+          // it would need to be called again or delegate event handling.
+          // However, direct onclick assignment should work.
+
+        })
+        .catch(error => console.error('Error loading or parsing XML:', error));
+    });
+
     function toggleMenu() {
       const sidebar = document.querySelector('.sidebar');
       sidebar.classList.toggle('active');
     }
+
     function selectMenuItem() {
       const sidebar = document.querySelector('.sidebar');
       if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
         sidebar.classList.remove('active');
       }
     }
-    // Add click event listeners to all sidebar links to close menu on selection (mobile)
-    const sidebarLinks = document.querySelectorAll('.sidebar ul li a');
-    sidebarLinks.forEach(link => {
-      link.addEventListener('click', selectMenuItem);
-    });
+    // Note: The event listeners for dynamically created sidebar links are set via .onclick
   </script>
 </body>
 </html>
