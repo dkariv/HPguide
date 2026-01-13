@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>מדריך ליזם - HomePay</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      line-height: 1.7;
+      margin: 0;
+      background-color: #f9f9f9;
+      color: #333;
+    }
+    header {
+      background: #ffffff;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+    header img {
+      max-height: 60px;
+    }
+    header { /* Ensure header itself allows for flex layout */
+      display: flex;
+      justify-content: space-between; /* Pushes logo and link to opposite ends */
+      align-items: center; /* Vertically aligns items in the center */
+    }
+    .header-support-link {
+      text-decoration: none;
+      color: #005baa;
+      font-weight: bold;
+      padding: 10px;
+      border: 1px solid #005baa;
+      border-radius: 5px;
+      margin-left: 20px; /* For RTL, this pushes it to the left */
+    }
+    .header-support-link:hover {
+      background-color: #005baa;
+      color: white;
+    }
+    .container {
+      display: flex;
+    }
+    .sidebar {
+      width: 250px;
+      background-color: #f0f0f0;
+      padding: 20px;
+      height: 100vh;
+      position: sticky;
+      top: 0;
+      overflow-y: auto;
+    }
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    /* .sidebar ul li a, .sidebar ul li a:hover, .content, h1, h2, .section, ul are defined later or are duplicates */
+    /* Specific styles for sidebar links */
+    .sidebar ul li a {
+      display: block;
+      padding: 10px 15px;
+      text-decoration: none;
+      color: #333;
+      border-bottom: 1px solid #ddd;
+    }
+    .sidebar ul li a:hover {
+      background-color: #005baa;
+      color: white;
+    }
+
+    .content {
+      flex-grow: 1;
+      padding: 20px;
+      margin-right: 20px;
+    }
+
+    .menu-toggle {
+      display: none; /* Hidden by default */
+      background-color: #005baa;
+      color: white;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: auto; /* Adjust height for horizontal layout */
+        position: static; /* No longer sticky */
+        display: none; /* Hidden for toggle */
+      }
+      .sidebar.active {
+        display: block; /* Show when active */
+      }
+      .menu-toggle {
+        display: block; /* Show hamburger icon */
+      }
+      .content {
+        margin-right: 0; /* Remove margin when sidebar is on top */
+      }
+    }
+
+    h1, h2 {
+      color: #005baa;
+    }
+    .section {
+      background-color: #fff;
+      padding: 20px;
+      margin-bottom: 30px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+    ul {
+      list-style: none; /* General ul reset, specific for content lists */
+      padding-right: 0; /* Align bullet points for RTL */
+    }
+    /* Remove duplicated .sidebar ul li a, .content, h1, h2, .section */
+    /* Styles for li::before and img.screenshot are unique and should remain */
+    li::before {
+      content: "\2022";
+      color: #005baa;
+      font-weight: bold;
+      display: inline-block;
+      width: 1em;
+      margin-right: 5px;
+    }
+    img.screenshot {
+      display: block;
+      margin: 20px auto;
+      max-width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header id="header-placeholder"></header>
+  <div class="menu-toggle" onclick="toggleMenu()">☰ תפריט</div>
+  <div class="container">
+    <nav class="sidebar">
+      <ul id="sidebar-ul">
+        <!-- Sidebar items will be populated by JavaScript -->
+      </ul>
+    </nav>
+    <div class="content" id="content-placeholder">
+      <!-- Content will be populated by JavaScript -->
+    </div>
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('homepay_guide_developer.xml')
+        .then(response => response.text())
+        .then(data => {
+          let parser = new DOMParser();
+          let xmlDoc = parser.parseFromString(data, 'application/xml');
+
+          // Populate title
+          document.title = xmlDoc.querySelector('title').textContent;
+
+          // Populate header
+          const headerPlaceholder = document.getElementById('header-placeholder');
+          const logoSrc = xmlDoc.querySelector('logo').textContent;
+          const headerImg = document.createElement('img');
+          headerImg.src = logoSrc;
+          headerImg.alt = 'HomePay Logo';
+          headerPlaceholder.appendChild(headerImg);
+
+          // Populate AI Support Link in header
+          const supportLinkData = xmlDoc.querySelector('headerSupportLink');
+          if (supportLinkData) {
+            const supportUrl = supportLinkData.querySelector('url').textContent;
+            const supportText = supportLinkData.querySelector('text').textContent;
+            const supportLinkElement = document.createElement('a');
+            supportLinkElement.href = supportUrl;
+            supportLinkElement.textContent = supportText;
+            supportLinkElement.className = 'header-support-link'; // For styling
+            headerPlaceholder.appendChild(supportLinkElement);
+          }
+
+          // Populate sidebar and content
+          const sidebarUl = document.getElementById('sidebar-ul');
+          const contentPlaceholder = document.getElementById('content-placeholder');
+
+          const mainHeadingText = xmlDoc.querySelector('mainHeading').textContent;
+          const mainHeadingElement = document.createElement('h1');
+          mainHeadingElement.textContent = mainHeadingText;
+          contentPlaceholder.appendChild(mainHeadingElement);
+
+          // Introduction
+          const introduction = xmlDoc.querySelector('introduction');
+          if (introduction) {
+            const introId = introduction.getAttribute('id');
+            const introHeadingText = introduction.querySelector('heading').textContent;
+
+            const sidebarLiIntro = document.createElement('li');
+            const sidebarLinkIntro = document.createElement('a');
+            sidebarLinkIntro.href = `#${introId}`;
+            sidebarLinkIntro.textContent = introHeadingText; // Or a shorter title like "הקדמה"
+            sidebarLinkIntro.onclick = selectMenuItem; // Keep existing mobile menu functionality
+            sidebarLiIntro.appendChild(sidebarLinkIntro);
+            sidebarUl.appendChild(sidebarLiIntro);
+
+            const introSectionDiv = document.createElement('div');
+            introSectionDiv.className = 'section';
+            introSectionDiv.id = introId;
+
+            const introH2 = document.createElement('h2');
+            introH2.textContent = introHeadingText;
+            introSectionDiv.appendChild(introH2);
+
+            introduction.querySelectorAll('paragraph').forEach(p => {
+              const pElement = document.createElement('p');
+              pElement.textContent = p.textContent;
+              introSectionDiv.appendChild(pElement);
+            });
+            contentPlaceholder.appendChild(introSectionDiv);
+          }
+
+          // Sections
+          xmlDoc.querySelectorAll('sections section').forEach(section => {
+            const sectionId = section.getAttribute('id');
+            const sectionHeadingText = section.querySelector('heading').textContent;
+
+            const sidebarLi = document.createElement('li');
+            const sidebarLink = document.createElement('a');
+            sidebarLink.href = `#${sectionId}`;
+            sidebarLink.textContent = sectionHeadingText;
+            sidebarLink.onclick = selectMenuItem;
+            sidebarLi.appendChild(sidebarLink);
+            sidebarUl.appendChild(sidebarLi);
+
+            const sectionDiv = document.createElement('div');
+            sectionDiv.className = 'section';
+            sectionDiv.id = sectionId;
+
+            const h2 = document.createElement('h2');
+            h2.textContent = sectionHeadingText;
+            sectionDiv.appendChild(h2);
+
+            const stepsUl = document.createElement('ul');
+            section.querySelectorAll('steps step').forEach(stepNode => {
+              const li = document.createElement('li');
+              li.textContent = stepNode.textContent;
+              stepsUl.appendChild(li);
+            });
+            if (stepsUl.hasChildNodes()) {
+              sectionDiv.appendChild(stepsUl);
+            }
+
+            section.querySelectorAll('images image').forEach(imgNode => {
+              const img = document.createElement('img');
+              img.src = imgNode.getAttribute('src');
+              img.alt = imgNode.getAttribute('alt');
+              img.className = 'screenshot';
+              sectionDiv.appendChild(img);
+            });
+            contentPlaceholder.appendChild(sectionDiv);
+          });
+
+          // Re-apply event listeners for new sidebar links if needed, though onclick should handle it
+          // If selectMenuItem relied on querySelectorAll('.sidebar ul li a') before this dynamic load,
+          // it would need to be called again or delegate event handling.
+          // However, direct onclick assignment should work.
+
+        })
+        .catch(error => console.error('Error loading or parsing XML:', error));
+    });
+
+    function toggleMenu() {
+      const sidebar = document.querySelector('.sidebar');
+      sidebar.classList.toggle('active');
+    }
+
+    function selectMenuItem() {
+      const sidebar = document.querySelector('.sidebar');
+      if (window.innerWidth <= 768 && sidebar.classList.contains('active')) {
+        sidebar.classList.remove('active');
+      }
+    }
+    // Note: The event listeners for dynamically created sidebar links are set via .onclick
+  </script>
+</body>
+</html>

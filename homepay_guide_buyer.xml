@@ -1,0 +1,55 @@
+<guide>
+  <title>מדריך לרוכש - HomePay</title>
+  <mainHeading>מדריך לרוכש במערכת HomePay</mainHeading>
+  <logo>hplogo.png</logo>
+  <headerSupportLink>
+    <url>ai_support_agent.html</url>
+    <text>תמיכה עם סוכן AI</text>
+  </headerSupportLink>
+
+  <introduction id="buyer_introduction">
+    <heading>מזל טוב על רכישת הדירה החדשה!</heading>
+    <paragraph>אנו מברכים אותך לרגל הצעד המשמעותי והמרגש – רכישת דירה בפרויקט שמציע שירות חדשני ומתקדם לניהול תשלומים דיגיטליים לפי חוק המכר.</paragraph>
+    <paragraph>באמצעות מערכת HomePay, עומדת לרשותך פלטפורמה חכמה, נוחה ובטוחה שתאפשר לך לנהל את תשלומי הדירה בקלות ובשקיפות מלאה. תוכל לצפות בשוברים ובפרטי התשלום שלך בכל רגע, להתעדכן בסכומים ובמועדים בזמן אמת, ולהוריד או לשלם את השוברים ישירות מהטלפון או המחשב – בלי בירוקרטיה, בלי תורים ובלי לצאת מהבית.</paragraph>
+    <paragraph>אנחנו כאן כדי להעניק לך חוויית רכישה דיגיטלית מתקדמת – שתתן לך שקט נפשי לאורך כל הדרך.</paragraph>
+  </introduction>
+
+  <sections>
+    <section id="buyer_section1">
+      <heading>שלב 1: כניסה למערכת והצגת נתוני הדירה</heading>
+      <steps>
+        <step>כניסה למערכת עם מספר ת"ז ומספר טלפון.</step>
+        <step>קבלת קוד חד פעמי לאימות.</step>
+        <step>גישה לממשק הדירה עם פרטי תשלומים ולחצני פעולה.</step>
+      </steps>
+      <images>
+        <image src="client1.png" alt="אימות עם קוד חד פעמי"/>
+        <image src="client2.png" alt="מסך פרטי הדירה"/>
+      </images>
+    </section>
+
+    <section id="buyer_section2">
+      <heading>שלב 2: תשלומים וצפייה בפרטי החיוב</heading>
+      <steps>
+        <step>צפייה בלוח תשלומים, תאריכים, סכומי קרן וסכומים כולל הצמדות.</step>
+        <step>הורדה של שובר תשלום או הוראת קבע.</step>
+      </steps>
+      <images>
+        <image src="client3.png" alt="מסך תשלומים לדירה"/>
+        <image src="client6.png" alt="צפייה בתשלום והורדת שובר"/>
+      </images>
+    </section>
+
+    <section id="buyer_section3">
+      <heading>שלב 3: פירוט רכיבי תשלום והרלוונטי להסכם</heading>
+      <steps>
+        <step>לחיצה על "צפה" תציג רכיבי תשלום כולל ריבית הצמדה, הפרשים ותנאים.</step>
+        <step>המידע כולל הסבר על מועדים ותנאים להסדרת התשלום.</step>
+      </steps>
+      <images>
+        <image src="client4.png" alt="פירוט הסכום לתשלום"/>
+        <image src="client5.png" alt="הפניה להסבר ריבית והצמדה"/>
+      </images>
+    </section>
+  </sections>
+</guide>

@@ -1,0 +1,88 @@
+<guide>
+  <title>מדריך ליזם - HomePay</title>
+  <mainHeading>מדריך ליזם במערכת HomePay</mainHeading>
+  <logo>hplogo.png</logo>
+  <headerSupportLink>
+    <url>ai_support_agent.html</url>
+    <text>תמיכה עם סוכן AI</text>
+  </headerSupportLink>
+
+  <introduction id="introduction">
+    <heading>ברוך הבא לעולם הדיגיטלי של HomePay!</heading>
+    <paragraph>אנו שמחים שבחרת להצטרף למהפכה הדיגיטלית בתחום הנדל״ן. באמצעות מערכת HomePay תוכל לנהל ולהנפיק שוברי תשלום על פי חוק המכר בצורה חכמה, מהירה ומאובטחת. מהיום, לא רק שאתה נהנה מייעול תהליכים והפחתת בירוקרטיה, אלא שאתה גם מעניק לרוכשים שלך חוויית שירות מתקדמת – כולל תשלום דיגיטלי קל ונוח, מעקב בזמן אמת אחר סכומים ותאריכי תשלום, וכל זאת בלחיצת כפתור.</paragraph>
+    <paragraph>יחד, נביא חדשנות אמיתית לעולם העסקאות בנדל״ן.</paragraph>
+  </introduction>
+
+  <sections>
+    <section id="section1">
+      <heading>שלב 1: כניסה למערכת</heading>
+      <steps>
+        <step>הזינו את מספר הטלפון ותעודת הזהות של הנציג.</step>
+        <step>תקבלו קוד חד פעמי לאימות.</step>
+        <step>לאחר מכן תעברו למסך הבית של המערכת.</step>
+      </steps>
+      <images>
+        <image src="Picture1.png" alt="מסך התחברות"/>
+        <image src="Picture2.png" alt="מסך אימות קוד"/>
+      </images>
+    </section>
+
+    <section id="section2">
+      <heading>שלב 2: מסך פרויקטים</heading>
+      <steps>
+        <step>מסך זה מציג את כלל הפרויקטים לפי חלוקה ליחידות, סטטוסים ובניינים.</step>
+        <step>ניתן לבחור פרויקט להמשך תהליך הנפקת שובר או העלאת הסכם.</step>
+      </steps>
+      <images>
+        <image src="Picture3.png" alt="מסך פרויקטים"/>
+      </images>
+    </section>
+
+    <section id="section3">
+      <heading>שלב 3: רשימת דירות בפרויקט</heading>
+      <steps>
+        <step>מעבר למסך "רשימת הדירות": זהו המסך המרכזי לניהול כל תהליך תפעול, ניהול והנפקת השוברים, ובו ניתן לבצע את הפעולות הבאות:</step>
+        <step>העלאת הסכם מכר: בלחיצה על הכפתור הכחול תוכלו להעלות את הסכם המכר החתום בפורמט PDF. המערכת תנתח את ההסכם ותעביר אותו אוטומטית לבדיקה ואישור של הגוף המממן.</step>
+        <step>הנפקה וצפייה בשוברים: לאחר קבלת אישור הגוף המממן – תתאפשר הנפקת השוברים בלחיצת כפתור, וצפייה בכל שובר שהונפק.</step>
+        <step>ביטול בכירה (במידה ונדרש): במקרים חריגים – ניתן לבטל את העסקה ישירות מתוך המערכת בלחיצה פשוטה.</step>
+      </steps>
+      <images>
+        <image src="Picture4.png" alt="רשימת דירות"/>
+      </images>
+    </section>
+
+    <section id="section4">
+      <heading>שלב 4: העלאת הסכם מכר</heading>
+      <steps>
+        <step>העלו הסכם מכר כולל מפת תשלומים בפורמט PDF.</step>
+        <step>המערכת תנתח את הקובץ ותשלח אותו לאישור הגוף המממן.</step>
+      </steps>
+      <images>
+        <image src="Picture5.png" alt="העלאת הסכם"/>
+        <image src="Picture6.png" alt="הסכם נטען"/>
+      </images>
+    </section>
+
+    <section id="section5">
+      <heading>שלב 5: הזמנת לקוח חדש</heading>
+      <steps>
+        <step>מלאו שם, טלפון ותעודת זהות של הרוכש.</step>
+        <step>שלחו לו קישור אישי להורדת השובר.</step>
+      </steps>
+      <images>
+        <image src="Picture7.png" alt="הזמנת רוכש חדש"/>
+      </images>
+    </section>
+
+    <section id="section6">
+      <heading>שלב 6: הורדת שובר ואישור תשלום</heading>
+      <steps>
+        <step>לאחר אישור הסכם המכר - השובר מוכן להורדה.</step>
+        <step>ניתן לצפות ולשתף את השובר עם הרוכש בלחיצת כפתור.</step>
+      </steps>
+      <images>
+        <image src="Picture8.png" alt="תצוגת שובר"/>
+      </images>
+    </section>
+  </sections>
+</guide>
